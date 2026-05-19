@@ -1,0 +1,1 @@
+# freedom-method-tool
