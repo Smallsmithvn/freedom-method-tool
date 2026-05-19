@@ -1,11 +1,3 @@
 {
-  "version": 2,
-  "builds": [
-    { "src": "index.html", "use": "@vercel/static" },
-    { "src": "api/insight.js", "use": "@vercel/node" }
-  ],
-  "routes": [
-    { "src": "/api/insight", "dest": "/api/insight.js" },
-    { "src": "/(.*)", "dest": "/index.html" }
-  ]
+  "version": 2
 }
