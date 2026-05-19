@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Freedom Method — Alignment Discovery</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--gold:#f4cd59;--purple:#4c2567;--rose:#d3b1c2;--purple-light:#6a3a8a;--purple-dark:#35194a;}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'DM Sans',sans-serif;background:#faf7f9;color:#2a1a35;min-height:100vh;}
+    #tfm{max-width:560px;margin:0 auto;padding-bottom:3rem;}
+    .hdr{background:var(--purple);padding:2.5rem 2rem 2rem;text-align:center;position:relative;overflow:hidden;}
+    .hdr::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:rgba(244,205,89,0.08);}
+    .hdr::after{content:'';position:absolute;bottom:-60px;left:-30px;width:160px;height:160px;border-radius:50%;background:rgba(211,177,194,0.1);}
+    .eyebrow{font-size:11px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem;}
+    .ttl{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:400;color:#fff;line-height:1.15;margin-bottom:0.5rem;}
+    .ttl em{font-style:italic;color:var(--gold);}
+    .sub{font-size:13px;color:rgba(211,177,194,0.9);font-weight:300;margin-top:0.5rem;}
+    .prog-bar{height:3px;background:rgba(76,37,103,0.15);}
+    .prog-fill{height:100%;background:var(--gold);transition:width 0.5s ease;}
+    .step{display:none;padding:2rem 1.75rem;animation:fadeUp 0.4s ease;}
+    .step.active{display:block;}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+    .qlabel{font-size:11px;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--purple);margin-bottom:0.6rem;opacity:0.7;}
+    .qtext{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;color:var(--purple-dark);line-height:1.3;margin-bottom:0.75rem;}
+    .qhint{font-size:13px;color:#888;line-height:1.6;margin-bottom:1.5rem;font-style:italic;}
+    .opts{display:flex;flex-direction:column;gap:10px;}
+    .opt{background:#fff;border:1.5px solid rgba(76,37,103,0.15);border-radius:12px;padding:14px 18px;font-size:14px;color:#2a1a35;cursor:pointer;text-align:left;transition:all 0.2s;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:12px;}
+    .opt:hover{border-color:var(--purple);background:#f8f2fc;color:var(--purple);transform:translateX(4px);}
+    .opt.sel{border-color:var(--purple);background:var(--purple);color:#fff;}
+    .dot{width:18px;height:18px;border-radius:50%;border:1.5px solid currentColor;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+    .opt.sel .dot::after{content:'';width:8px;height:8px;border-radius:50%;background:var(--gold);}
+    .bodygrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+    .bodycard{background:#fff;border:1.5px solid rgba(76,37,103,0.12);border-radius:12px;padding:16px;cursor:pointer;text-align:center;transition:all 0.2s;}
+    .bodycard:hover{border-color:var(--purple);background:#f8f2fc;}
+    .bodycard.sel{border-color:var(--purple);background:var(--purple);}
+    .bodyicon{font-size:1.6rem;margin-bottom:6px;display:block;}
+    .bodylbl{font-size:13px;font-weight:500;color:#2a1a35;}
+    .bodycard.sel .bodylbl{color:#fff;}
+    textarea.inp{width:100%;background:#fff;border:1.5px solid rgba(76,37,103,0.2);border-radius:12px;padding:14px 16px;font-size:14px;font-family:'DM Sans',sans-serif;color:#2a1a35;resize:none;min-height:90px;outline:none;transition:border-color 0.2s;}
+    textarea.inp:focus{border-color:var(--purple);}
+    input.tinp{width:100%;background:#fff;border:1.5px solid rgba(76,37,103,0.2);border-radius:12px;padding:13px 16px;font-size:14px;font-family:'DM Sans',sans-serif;color:#2a1a35;outline:none;transition:border-color 0.2s;margin-bottom:10px;display:block;}
+    input.tinp:focus{border-color:var(--purple);}
+    .btn{background:var(--purple);color:#fff;border:none;border-radius:10px;padding:14px 28px;font-size:14px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;transition:all 0.2s;margin-top:1rem;display:inline-flex;align-items:center;gap:8px;}
+    .btn:hover{background:var(--purple-light);transform:translateY(-1px);}
+    .btn:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
+    .btn-gold{background:var(--gold);color:var(--purple-dark);}
+    .btn-gold:hover{background:#e8b93a;}
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;}
+    .payoff-card{background:#fff;border:1.5px solid rgba(76,37,103,0.12);border-radius:12px;padding:14px;cursor:pointer;text-align:center;transition:all 0.2s;font-size:13px;color:#2a1a35;}
+    .payoff-card:hover{border-color:var(--purple);background:#f8f2fc;}
+    .payoff-card.sel{border-color:var(--purple);background:var(--purple);color:#fff;}
+    .payoff-icon{font-size:1.4rem;margin-bottom:5px;display:block;}
+    .privacy{font-size:11px;color:#999;margin-top:0.75rem;display:flex;align-items:center;gap:6px;}
+    .waiting{text-align:center;padding:3rem 2rem;}
+    .waiting-ring{width:48px;height:48px;border:3px solid rgba(76,37,103,0.15);border-top-color:var(--purple);border-radius:50%;animation:spin 0.9s linear infinite;margin:0 auto 1.5rem;}
+    @keyframes spin{to{transform:rotate(360deg);}}
+    .waiting-text{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--purple);font-style:italic;margin-bottom:0.5rem;}
+    .waiting-sub{font-size:13px;color:#999;line-height:1.6;}
+    input[type=range]{width:100%;accent-color:var(--purple);margin-bottom:1.5rem;}
+    .range-row{display:flex;justify-content:space-between;font-size:13px;color:#666;margin-bottom:8px;}
+    .range-val{font-weight:500;color:var(--purple);}
+    .rcard{background:#fff;border-radius:14px;border:1.5px solid rgba(76,37,103,0.12);padding:1.5rem;margin-bottom:1rem;}
+    .rlabel{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;font-weight:500;color:var(--purple);opacity:0.6;margin-bottom:0.6rem;}
+    .rtext{font-family:'Cormorant Garamond',serif;font-size:1.12rem;line-height:1.7;color:var(--purple-dark);}
+    .rtext em{font-style:italic;}
+    .divider{height:1px;background:rgba(76,37,103,0.1);margin:1rem 0;}
+    .pill{display:inline-block;background:rgba(76,37,103,0.08);color:var(--purple);border-radius:20px;padding:5px 14px;font-size:12px;font-weight:500;margin:4px 4px 4px 0;}
+    .shift-card{background:linear-gradient(135deg,#f8f2fc 0%,#faf7e8 100%);border-radius:14px;border:1.5px solid rgba(76,37,103,0.2);padding:1.5rem;margin-bottom:1rem;}
+    .sabotage-card{background:linear-gradient(135deg,#fff8e8 0%,#fdf4f8 100%);border-radius:14px;border:1.5px solid rgba(244,205,89,0.4);padding:1.5rem;margin-bottom:1rem;}
+    .cta{background:var(--purple);border-radius:14px;padding:1.75rem;text-align:center;margin-top:1.25rem;}
+    .ctah{font-family:'Cormorant Garamond',serif;font-size:1.45rem;color:#fff;margin-bottom:0.5rem;font-weight:400;}
+    .ctah em{color:var(--gold);font-style:italic;}
+    .ctas{font-size:13px;color:rgba(211,177,194,0.9);margin-bottom:1.25rem;line-height:1.6;}
+    .ctabtn{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--purple-dark);border-radius:10px;padding:13px 24px;font-size:14px;font-weight:500;text-decoration:none;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+    .ctabtn:hover{background:#e8b93a;transform:translateY(-1px);}
+    .result-wrap{padding:1.75rem;}
+  </style>
+</head>
+<body>
+<div id="tfm">
+  <div class="hdr">
+    <div class="eyebrow">The Freedom Method</div>
+    <div class="ttl">Your <em>Alignment</em><br>Discovery</div>
+    <div class="sub">with Donna Smith Lees · 7 minutes</div>
+  </div>
+  <div class="prog-bar"><div class="prog-fill" id="prog" style="width:0%"></div></div>
+
+  <div class="step active" id="s0">
+    <div class="qlabel">Welcome</div>
+    <div class="qtext">There's something quietly running beneath the surface of your life.<br><em>Are you ready to see it?</em></div>
+    <p style="font-size:14px;color:#666;line-height:1.7;margin-bottom:1.5rem;">This short exercise will help you discover the hidden belief that might be holding you back — and give you a felt sense of what becomes possible when it shifts.</p>
+    <button class="btn" onclick="go(1)">Begin my discovery →</button>
+  </div>
+
+  <div class="step" id="s1">
+    <div class="qlabel">Question 1 of 7</div>
+    <div class="qtext">Which area of your life feels most… stuck right now?</div>
+    <div class="opts">
+      <button class="opt" onclick="pick(this,'q1','My career or business')"><span class="dot"></span>My career or business</button>
+      <button class="opt" onclick="pick(this,'q1','My relationships')"><span class="dot"></span>My relationships</button>
+      <button class="opt" onclick="pick(this,'q1','My confidence and self-worth')"><span class="dot"></span>My confidence and self-worth</button>
+      <button class="opt" onclick="pick(this,'q1','My finances')"><span class="dot"></span>My finances</button>
+      <button class="opt" onclick="pick(this,'q1','My health or wellbeing')"><span class="dot"></span>My health or wellbeing</button>
+    </div>
+    <button class="btn" id="n1" style="display:none" onclick="go(2)">Continue →</button>
+  </div>
+
+  <div class="step" id="s2">
+    <div class="qlabel">Question 2 of 7</div>
+    <div class="qtext">What do you most want to create or feel in this area?</div>
+    <div class="qhint">Not what you think you should want — what do you actually want?</div>
+    <textarea class="inp" id="q2t" placeholder="e.g. financial freedom, a loving relationship, confidence in my own skin..." oninput="chkTxt('q2t','n2','q2')"></textarea>
+    <button class="btn" id="n2" style="display:none" onclick="go(3)">Continue →</button>
+  </div>
+
+  <div class="step" id="s3">
+    <div class="qlabel">Question 3 of 7</div>
+    <div class="qtext">What have you already tried in order to get there?</div>
+    <div class="qhint">Think about the actions, courses, therapy, strategies — what has and hasn't worked?</div>
+    <textarea class="inp" id="q3t" placeholder="e.g. read lots of books, tried therapy, started businesses that didn't work out..." oninput="chkTxt('q3t','n3','q3')"></textarea>
+    <button class="btn" id="n3" style="display:none" onclick="go(4)">Continue →</button>
+  </div>
+
+  <div class="step" id="s4">
+    <div class="qlabel">Question 4 of 7</div>
+    <div class="qtext">Where do you feel this stuckness in your body?</div>
+    <div class="qhint">Take a breath and notice — where does it live?</div>
+    <div class="bodygrid">
+      <div class="bodycard" onclick="pickBody(this,'my chest — tight, heavy, constricted')"><span class="bodyicon">🫁</span><div class="bodylbl">In my chest</div></div>
+      <div class="bodycard" onclick="pickBody(this,'my stomach — anxious, knotted, unsettled')"><span class="bodyicon">🌀</span><div class="bodylbl">In my stomach</div></div>
+      <div class="bodycard" onclick="pickBody(this,'my throat — held back, unable to speak up')"><span class="bodyicon">🔇</span><div class="bodylbl">In my throat</div></div>
+      <div class="bodycard" onclick="pickBody(this,'my whole body — heavy, exhausted, weighed down')"><span class="bodyicon">🌑</span><div class="bodylbl">Whole body</div></div>
+      <div class="bodycard" onclick="pickBody(this,'my head — spinning, overthinking, foggy')"><span class="bodyicon">💭</span><div class="bodylbl">In my head</div></div>
+      <div class="bodycard" onclick="pickBody(this,'my heart — closed, guarded, numb')"><span class="bodyicon">🤍</span><div class="bodylbl">In my heart</div></div>
+    </div>
+    <button class="btn" id="n4" style="display:none" onclick="go(5)">Continue →</button>
+  </div>
+
+  <div class="step" id="s5">
+    <div class="qlabel">Question 5 of 7</div>
+    <div class="qtext">How long have you been carrying this feeling?</div>
+    <div class="range-row"><span>A few months</span><span class="range-val" id="dval">A few years</span><span>Most of my life</span></div>
+    <input type="range" min="1" max="3" step="1" value="2" oninput="setDur(this.value)">
+    <button class="btn" onclick="go(6)">Continue →</button>
+  </div>
+
+  <div class="step" id="s6">
+    <div class="qlabel">Question 6 of 7</div>
+    <div class="qtext">What could be the <em>benefit</em> of not having what you want?</div>
+    <div class="qhint">This might feel strange — but sometimes staying stuck keeps us safe in ways we haven't noticed yet.</div>
+    <div class="two-col">
+      <div class="payoff-card" onclick="pickPayoff(this,'It keeps me safe from failure or judgement')"><span class="payoff-icon">🛡️</span>Safe from failure or judgement</div>
+      <div class="payoff-card" onclick="pickPayoff(this,'It means I don\'t have to take a scary risk')"><span class="payoff-icon">😰</span>Avoids a scary risk</div>
+      <div class="payoff-card" onclick="pickPayoff(this,'It keeps other people comfortable around me')"><span class="payoff-icon">🤝</span>Keeps others comfortable</div>
+      <div class="payoff-card" onclick="pickPayoff(this,'It protects me from being seen or exposed')"><span class="payoff-icon">👁️</span>Avoids being seen</div>
+      <div class="payoff-card" onclick="pickPayoff(this,'It means I still have an excuse if things don\'t work out')"><span class="payoff-icon">🚪</span>Gives me an exit excuse</div>
+      <div class="payoff-card" onclick="pickPayoff(this,'I genuinely don\'t know — it\'s invisible to me')"><span class="payoff-icon">❓</span>I honestly don't know</div>
+    </div>
+    <div class="qhint" style="margin-bottom:0.5rem">Or in your own words…</div>
+    <textarea class="inp" id="q6own" placeholder="If none of the above feel right, write your own..." style="min-height:60px" oninput="chkPayoffOwn()"></textarea>
+    <button class="btn" id="n6" style="display:none" onclick="go(7)">Continue →</button>
+  </div>
+
+  <div class="step" id="s7">
+    <div class="qlabel">Question 7 of 7</div>
+    <div class="qtext">What might be the benefit of <em>not taking action</em> toward what you want?</div>
+    <div class="qhint">Sometimes inaction has its own quiet reward. What might staying still be giving you right now?</div>
+    <div class="opts">
+      <button class="opt" onclick="pick(this,'q7','It feels less overwhelming than starting')"><span class="dot"></span>It feels less overwhelming than starting</button>
+      <button class="opt" onclick="pick(this,'q7','I avoid the discomfort of change')"><span class="dot"></span>I avoid the discomfort of change</button>
+      <button class="opt" onclick="pick(this,'q7','I don\'t have to confront what I might discover about myself')"><span class="dot"></span>I don't have to face what I might discover</button>
+      <button class="opt" onclick="pick(this,'q7','I get to stay in a pattern that feels familiar, even if it hurts')"><span class="dot"></span>The familiar feels safer, even when it hurts</button>
+      <button class="opt" onclick="pick(this,'q7','I\'m not sure — it just feels impossible to move')"><span class="dot"></span>I'm not sure — it just feels impossible to move</button>
+    </div>
+    <button class="btn" id="n7" style="display:none" onclick="go(8)">Almost there →</button>
+  </div>
+
+  <div class="step" id="s8">
+    <div style="background:#fff;border-radius:14px;border:1.5px solid rgba(76,37,103,0.15);padding:1.75rem;">
+      <div class="qlabel">One last thing</div>
+      <div class="qtext" style="margin-bottom:0.75rem">Where shall I send your insight?</div>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--purple-dark);line-height:1.6;margin-bottom:1.5rem;font-style:italic;">"You've just shared something really significant. Your personalised Alignment Discovery is ready — let me know where to deliver it."</p>
+      <input type="text" class="tinp" id="gname" placeholder="Your first name" oninput="chkGate()">
+      <input type="email" class="tinp" id="gemail" placeholder="Your email address" oninput="chkGate()">
+      <button class="btn btn-gold" id="gbtn" disabled onclick="submit()">✨ Reveal my insight</button>
+      <div class="privacy">🔒 Your details are only used to send your insight and will never be shared.</div>
+    </div>
+  </div>
+
+  <div class="step" id="s9">
+    <div class="waiting">
+      <div class="waiting-ring"></div>
+      <div class="waiting-text">Reading what you've shared…</div>
+      <div class="waiting-sub">Your personalised Alignment Discovery is being prepared.<br>This takes about 15 seconds.</div>
+    </div>
+  </div>
+
+  <div class="step" id="s10">
+    <div class="result-wrap" id="result"></div>
+  </div>
+</div>
+
+<script>
+const SHEET_URL='https://script.google.com/macros/s/AKfycbw2d80F2uI-zL4I8X_vE0nS2W9oCKstRW65RpPtd1HhwtjsGNUOSa7oIRB9X7bzJqcsgQ/exec';
+const A={q5:'A few years'};
+const durs=['A few months','A few years','Most of my life'];
+
+function go(n){
+  document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('s'+n).classList.add('active');
+  document.getElementById('prog').style.width=Math.round((n/10)*100)+'%';
+  window.scrollTo(0,0);
+}
+
+function pick(el,k,v){
+  el.closest('.opts').querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel'); A[k]=v;
+  const map={q1:'n1',q7:'n7'};
+  if(map[k]) document.getElementById(map[k]).style.display='inline-flex';
+}
+
+function pickBody(el,v){
+  document.querySelectorAll('.bodycard').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel'); A.q4=v;
+  document.getElementById('n4').style.display='inline-flex';
+}
+
+function pickPayoff(el,v){
+  document.querySelectorAll('.payoff-card').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel'); A.q6=v;
+  document.getElementById('n6').style.display='inline-flex';
+}
+
+function chkPayoffOwn(){
+  const v=document.getElementById('q6own').value.trim();
+  if(v.length>5){ A.q6=v; document.querySelectorAll('.payoff-card').forEach(c=>c.classList.remove('sel')); document.getElementById('n6').style.display='inline-flex'; }
+}
+
+function setDur(v){ A.q5=durs[v-1]; document.getElementById('dval').textContent=durs[v-1]; }
+
+function chkTxt(inputId,btnId,key){
+  const v=document.getElementById(inputId).value.trim();
+  A[key]=v; document.getElementById(btnId).style.display=v.length>5?'inline-flex':'none';
+}
+
+function chkGate(){
+  const n=document.getElementById('gname').value.trim();
+  const e=document.getElementById('gemail').value.trim();
+  A.firstName=n; A.email=e;
+  document.getElementById('gbtn').disabled=!(n.length>1&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e));
+}
+
+async function submit(){
+  A.firstName=document.getElementById('gname').value.trim();
+  A.email=document.getElementById('gemail').value.trim();
+  go(9);
+
+  // Send to Google Sheet
+  try{
+    fetch(SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({firstName:A.firstName,email:A.email,q1:A.q1||'',q2:A.q2||'',q3:A.q3||'',q4:A.q4||'',q5:A.q5||'',q6:A.q6||'',q7:A.q7||''})});
+  }catch(e){}
+
+  // Call our Vercel API route for the insight
+  try{
+    const res=await fetch('/api/insight',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(A)
+    });
+    const data=await res.json();
+    if(data.html){ renderResult(data.html); }
+    else{ renderError(); }
+  }catch(e){ renderError(); }
+}
+
+function renderResult(html){
+  document.getElementById('result').innerHTML=html;
+  go(10);
+  document.getElementById('prog').style.width='100%';
+}
+
+function renderError(){
+  document.getElementById('result').innerHTML=`
+    <div style="background:#fff;border-radius:14px;border:1.5px solid rgba(76,37,103,0.12);padding:1.5rem;margin-bottom:1rem;">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:#35194a;line-height:1.6;">Something went wrong generating your insight. Please <a href="mailto:donna@donnasmithlees.co.uk" style="color:#4c2567;">email Donna directly</a> and she'll be in touch personally.</div>
+    </div>`;
+  go(10);
+}
+</script>
+</body>
+</html>
